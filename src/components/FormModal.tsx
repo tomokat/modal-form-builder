@@ -38,6 +38,12 @@ const FormModal: React.FC<FormModalProps> = ({
     onClose();
   };
 
+  const getFieldValue = (fieldName: string | null): string => {
+    if (!fieldName) return '';
+    const value = referenceObject[fieldName];
+    return typeof value === 'string' ? value : '';
+  };
+
   const renderField = (field: FieldDefinition) => {
     switch (field.type) {
       case 'filler':
@@ -61,7 +67,7 @@ const FormModal: React.FC<FormModalProps> = ({
               variant="outline"
               className="hover:bg-gray-100 transition-colors"
             >
-              {field.fieldName ? referenceObject[field.fieldName] : 'Button'}
+              {getFieldValue(field.fieldName)}
             </Button>
           </motion.div>
         );
@@ -76,7 +82,7 @@ const FormModal: React.FC<FormModalProps> = ({
               {field.fieldName}
             </Label>
             <p className="mt-1 text-lg">
-              {field.fieldName ? referenceObject[field.fieldName] : ''}
+              {getFieldValue(field.fieldName)}
             </p>
           </motion.div>
         );
